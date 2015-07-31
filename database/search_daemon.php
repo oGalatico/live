@@ -1,6 +1,7 @@
 #!/usr/bin/php
  
 <?php
+# CHANGE DIRECTORIES TO MATCH A SUITABLE ONE FOR YOUR ENVIRONMENT
 $log = '/home/rascal/Documents/FinalProject/daemon/log/Daemon.log';
  
 /**
@@ -48,7 +49,7 @@ else if($pid){
 else{
     //the main process
     $run = 1;
-    while($run<10){
+    while($run<2){
         file_put_contents($log, 'Running...', FILE_APPEND);
         $user = "root";
 		$database = "search_1";
@@ -63,25 +64,35 @@ else{
 
 		// $start_search = getmicrotime();
 	   //initializing MySQL Query  
-	   $sql_query = mysql_query("SELECT * FROM news WHERE MATCH(title,article) AGAINST('$search_term')");
+	   $sql_query = mysql_query("SELECT * FROM news WHERE MATCH(title,article) AGAINST('politics')");
 
 	   //additional check. Insurance method to re-search the database again in case of too many matches (too many matches cause returning of 0 results)
-	   if($results = mysql_num_rows($sql_query) != 0) {
-            $sql =  "SELECT * FROM news WHERE MATCH(title,article) AGAINST('$search_term') LIMIT $first_pos, $RESULTS_LIMIT";
-            $sql_result_query = mysql_query($sql);         
+	   	if($results = mysql_num_rows($sql_query) != 0) {
+	   		mysql_query("SELECT * FROM news WHERE MATCH(title,article) AGAINST('politics') INTO OUTFILE '/home/rascal/Documents/FinalProject/daemon/log/Daemon.log'");
+	   		// the message
+	   		// file_put_contents($log, $results, FILE_APPEND);
+			$msg = "First line of text\nSecond line of text";
+
+			// use wordwrap() if lines are longer than 70 characters
+			$msg = wordwrap($msg,70);
+
+			// send email
+			mail("cmclaren89@gmail.com","My subject",$msg);
+            // $sql =  "SELECT * FROM news WHERE MATCH(title,article) AGAINST('politics') LIMIT $first_pos, $RESULTS_LIMIT";
+            // $sql_result_query = mysql_query($sql);         
         }
-	   else {
-            $sql = "SELECT * FROM news WHERE (title LIKE '%".mysql_real_escape_string($search_term)."%' OR article LIKE '%".$search_term."%') ";
-            $sql_query = mysql_query($sql);
-            $results = mysql_num_rows($sql_query);
-            $sql_result_query = mysql_query("SELECT * FROM news WHERE (title LIKE '%".$search_term."%' OR article LIKE '%".$search_term."%') LIMIT $first_pos, $RESULTS_LIMIT ");
-        }
-	   $stop_search = getmicrotime();
+	   // else {
+    //         $sql = "SELECT * FROM news WHERE (title LIKE '%".mysql_real_escape_string($search_term)."%' OR article LIKE '%".$search_term."%') ";
+    //         $sql_query = mysql_query($sql);
+    //         $results = mysql_num_rows($sql_query);
+    //         $sql_result_query = mysql_query("SELECT * FROM news WHERE (title LIKE '%".$search_term."%' OR article LIKE '%".$search_term."%') LIMIT $first_pos, $RESULTS_LIMIT ");
+    //     }
+	   // $stop_search = getmicrotime();
 	     //calculating the search time
-	   $time_search = ($stop_search - $start_search);
+	   // $time_search = ($stop_search - $start_search);
 
 	   //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		}
+		// }
 		$run ++;
 		// $run = false;
         sleep(5);
