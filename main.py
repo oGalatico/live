@@ -12,8 +12,8 @@ from flask.ext.mysqldb import MySQL
 app = Flask(__name__)
 mysql = MySQL(app)
 
-MYSQL_USER = "root"
-MYSQL_PASSWORD ="RenVenrascal"
+app.config['MYSQL_USER'] = "username"
+app.config['MYSQL_PASSWORD'] = "password"
 
 @app.route('/test')
 def users():
