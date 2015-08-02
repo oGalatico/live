@@ -1,7 +1,6 @@
 # Virtualenv
 venv
 env
-flask
 .Python
 include
 lib
