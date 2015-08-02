@@ -3,14 +3,59 @@
     margin: 0 auto;
 }
 
+#profile_info
+{
+    background-color: rgb(255, 255, 255);
+    height: 100%;
+    width: 710px;
+}
+
+#profile_pic
+{
+    height:250px;
+}
 #sta
 {
-    font-family: Oxygen;
+    
+}
+
+#sta-panel
+{
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .poiref
 {
     background-color:aqua;
+    width:100%;
+    text-align: left;
+    margin-bottom: 1px;
+    margin-top: 1px;
+    border-radius:25px;
+    height:26px;
+
+}
+
+#left-ref 
+{
+    position:relative;
+    float:left;
+    width:195px;
+}
+
+.value-text
+{
+    margin-left: 10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#right-ref
+{
+    position:relative;
+    float:left;
+    width:195px;
 }
 
 .pic{
@@ -22,6 +67,7 @@
 .label-css
 {
     margin: 10px;
+    font-size: 1.5em;
 }
 
 .line-divider
@@ -141,4 +187,5 @@ body{
     left: 295px;
     width:750px;
     height:100%;
+    font-family: Oxygen;
 }
