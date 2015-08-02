@@ -68,7 +68,8 @@ else{
 
 	   //additional check. Insurance method to re-search the database again in case of too many matches (too many matches cause returning of 0 results)
 	   	if($results = mysql_num_rows($sql_query) != 0) {
-	   		mysql_query("SELECT * FROM news WHERE MATCH(title,article) AGAINST('politics') INTO OUTFILE '/home/rascal/Documents/FinalProject/daemon/log/Daemon.log'");
+	   		mysql_query("SELECT * FROM news WHERE MATCH(title,article) AGAINST('politics') INTO $id");
+	   		echo $id;
 	   		// the message
 	   		// file_put_contents($log, $results, FILE_APPEND);
 			$msg = "First line of text\nSecond line of text";
