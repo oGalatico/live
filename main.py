@@ -8,7 +8,19 @@ This file creates your application.
 
 from flask import Flask
 from flask import render_template, request, redirect, url_for
+from flask.ext.mysqldb import MySQL
 app = Flask(__name__)
+mysql = MySQL(app)
+
+MYSQL_USER = "root"
+MYSQL_PASSWORD ="RenVenrascal"
+
+@app.route('/test')
+def users():
+    cur = mysql.connection.cursor()
+    cur.execute('''SELECT user, host FROM mysql.user''')
+    rv = cur.fetchall()
+    return str(rv)
 
 
 #if __name__ == '__main__':
